@@ -1,0 +1,31 @@
+/* CSS pour le certificat de course */
+
+body {
+    font-size: larger;
+    font-family: cursive;
+    margin: 0;
+    padding: 100px 100px 100px 100px;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 100px;
+    justify-content: center;
+}
+
+img{
+    width: 800px;
+    height: 300px;
+    border: none;
+}
+
+.certificat{
+    margin-bottom: -100px;
+}
+
+.contenu {
+    text-align: center;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 5px;
+}
