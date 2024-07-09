@@ -5,6 +5,8 @@ use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaisonController;
+
+use App\Http\Controllers\DatawarehouseController;
 use App\Models\Client;
 
 // login et inscription
@@ -67,3 +69,6 @@ Route::get('/classement_equipe', [ClientController::class, 'liste_details_partic
 Route::post('/import_Client', [ClientController::class, 'import_client'])->name('import_Client');
 Route::post('/import_paiement', [ClientController::class, 'do_paiement'])->name('import_paiement');
 Route::get('/logout_client', [ClientController::class, 'logout'])->name('logout_client');
+
+// datawarehouse 
+Route::get('/transfer-and-insert', [DatawarehouseController::class, 'transferAndInsertCoureur'])->name('transfer-and-insert');

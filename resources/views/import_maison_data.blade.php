@@ -44,6 +44,7 @@
                             </ul>
                         </li>
                         <li><a href="{{route('graphe')}}" class="nav-link px-2 link-dark">Graphe</a></li>
+                        <li><a href="{{route('transfer-and-insert')}}" class="nav-link px-2 link-dark">Datawarehouse</a></li>
                         {{-- <li><a href="{{route('pdf')}}" class="nav-link px-2 link-dark">Pdf</a></li> --}}
                     </ul>
                     <div class="col-md-3 text-end">

@@ -78,6 +78,19 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql_warehouse' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST_WAREHOUSE', '127.0.0.1'),
+            'port' => env('DB_PORT_WAREHOUSE', '5432'),
+            'database' => env('DB_DATABASE_WAREHOUSE', 'forge'),
+            'username' => env('DB_USERNAME_WAREHOUSE', 'forge'),
+            'password' => env('DB_PASSWORD_WAREHOUSE', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
