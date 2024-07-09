@@ -71,4 +71,8 @@ Route::post('/import_paiement', [ClientController::class, 'do_paiement'])->name(
 Route::get('/logout_client', [ClientController::class, 'logout'])->name('logout_client');
 
 // datawarehouse 
-Route::get('/transfer-and-insert', [DatawarehouseController::class, 'transferAndInsertCoureur'])->name('transfer-and-insert');
+Route::get('/transfer-and-insert', [DatawarehouseController::class, 'index'])->name('transfer-and-insert');
+Route::get('/generate', [DatawarehouseController::class, 'transferAndInsertCoureur'])->name('generate');
+Route::get('/coureurs/search', [DatawarehouseController::class, 'search'])->name('coureurs.search');
+Route::put('/coureurs/{id}', [DatawarehouseController::class, 'update'])->name('coureurs.update');
+Route::get('/coureurs/{id}/edit', [DatawarehouseController::class, 'edit'])->name('coureurs.edit');

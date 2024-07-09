@@ -91,17 +91,19 @@ CREATE TABLE Admin (
 );
 
 CREATE OR REPLACE PROCEDURE inserer_equipe(
+    p_id int,
     p_nom VARCHAR(255),
     p_login VARCHAR(255),
     p_mot_de_passe VARCHAR(255)
 )
 LANGUAGE SQL
 AS $$
-    INSERT INTO Equipe (nom, login, mot_de_passe)
-    VALUES (p_nom, p_login, p_mot_de_passe);
+    INSERT INTO Equipe (id,nom, login, mot_de_passe)
+    VALUES (p_id,p_nom, p_login, p_mot_de_passe);
 $$;
 
 CREATE OR REPLACE PROCEDURE inserer_coureur(
+    p_id int,
     p_nom VARCHAR(255),
     p_numero_dossard INT,
     p_genre VARCHAR(10),
@@ -110,6 +112,35 @@ CREATE OR REPLACE PROCEDURE inserer_coureur(
 )
 LANGUAGE SQL
 AS $$
-    INSERT INTO Coureur (nom, numero_dossard, genre, date_naissance, equipe, created_at, updated_at)
-    VALUES (p_nom, p_numero_dossard, p_genre, p_date_naissance, p_equipe_id, NOW(), NOW());
+    INSERT INTO Coureur (id,nom, numero_dossard, genre, date_naissance, equipe, created_at, updated_at)
+    VALUES (p_id,p_nom, p_numero_dossard, p_genre, p_date_naissance, p_equipe_id, NOW(), NOW());
 $$;
+
+CREATE INDEX idx_coureur_equipe ON coureur(equipe);
+CREATE INDEX idx_coureur_nom ON coureur(nom);
+CREATE INDEX idx_participation_etape ON participation(id_etape);
+CREATE INDEX idx_participation_equipe ON participation(id_equipe);
+CREATE INDEX idx_participation_coureur ON participation(id_coureur);
+CREATE INDEX idx_etape_course ON etape(id_course);
+
+-- Création du trigger dans PostgreSQL
+CREATE OR REPLACE FUNCTION update_coureur_trigger_function()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Création du trigger
+CREATE TRIGGER update_coureur_trigger
+AFTER UPDATE ON coureur
+FOR EACH ROW
+EXECUTE FUNCTION update_coureur_trigger_function();
+
+CREATE OR REPLACE FUNCTION calculer_age(date_naissance DATE)
+    RETURNS INT AS $$
+    BEGIN
+        RETURN EXTRACT(YEAR FROM age(current_date, date_naissance));
+    END;
+    $$ LANGUAGE plpgsql;
